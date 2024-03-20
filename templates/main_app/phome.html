@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+<!--  -->
+{% block content %}
+<div class="col-md-6 col-auto">
+  <div class="card">
+    <a href="http://localhost:8000/get_data">Get Data From Api</a>
+  </div>
+    <form action="get">
+      <label for="condition">Enter Title For Search</label>
+      <input type="text" id="condition"  name="condition"/>
+    </div>
+    <div class="card">
+        <div>
+            {%if page_obj.has_previous %} {# whether the previous page exists #}
+                <a href="?page={{page_obj.previous_page_number}}"><</a> {# link to the prev page #}
+            {% endif %}
+            <span>{{page_obj.number}}</span> {# the current page number #}
+           
+            {%if page_obj.has_next %} {# whether the next page exists #}
+                <a href="?page={{page_obj.next_page_number}}">></a> {# link to the next page #}
+            {% endif %}
+          </div>
+        
+      <div class="card-header">
+        Todos
+      </div>
+      <ul class="list-group list-group-flush">
+      {% for todo in page_obj.object_list %}
+      <li class="list-group-item">{{ todo.id }} - {{ todo.title }}</li>
+      {% endfor %}
+      </ul>
+    </div>
+    
+  </div>
+{% endblock content %}
